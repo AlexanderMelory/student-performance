@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Список кафедр</h2>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Название кафедры</th>
+          <th scope="col">Заведующий</th>
+          <th scope="col">Факультет</th>
+          <th scope="col">Номер комнаты</th>
+          <th scope="col">Номер корпуса</th>
+          <th scope="col">Номер телефона</th>
+          <th scope="col">Преподаватели</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for department in object_list %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ department.name }}</td>
+            <td>{{ department.leader.first_name }} {{ department.leader.last_name }}</td>
+            <td>{{ department.faculty.name }}</td>
+            <td>{{ department.room }}</td>
+            <td>{{ department.housing }}</td>
+            <td>{{ department.phone }}</td>
+            <td>
+              {% for teacher in department.teachers.all %}
+                {{ teacher.first_name }} {{ teacher.last_name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
