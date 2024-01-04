@@ -12,6 +12,9 @@ class StudentCreateView(CreateView):
     template_name = 'peoples/students/create.html'
     form_class = StudentCreateForm
 
+    def get_success_url(self):
+        return self.object.get_detail_url()
+
 
 class StudentUpdateView(UpdateView):
     """
@@ -21,6 +24,9 @@ class StudentUpdateView(UpdateView):
     model = Student
     template_name = 'peoples/students/update.html'
     form_class = StudentUpdateForm
+
+    def get_success_url(self):
+        return self.object.get_detail_url()
 
 
 class StudentListView(ListView):
@@ -50,6 +56,9 @@ class StuffCreateView(CreateView):
     template_name = 'peoples/stuff/create.html'
     form_class = StuffCreateForm
 
+    def get_success_url(self):
+        return self.object.get_detail_url()
+
 
 class StuffUpdateView(UpdateView):
     """
@@ -59,6 +68,9 @@ class StuffUpdateView(UpdateView):
     model = Stuff
     template_name = 'peoples/stuff/update.html'
     form_class = StuffUpdateForm
+
+    def get_success_url(self):
+        return self.object.get_detail_url()
 
 
 class StuffListView(ListView):

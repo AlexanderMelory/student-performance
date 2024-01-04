@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {#  Bootstrap styles  #}
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <title>{% block title %}Список студентов{% endblock %}</title>
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="main">
+      {% block content %}
+      {% endblock %}
+    </div>
+  
+    {#  Bootstrap scripts  #}
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+    {#  jquery scripts  #}
+    <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+  </body>
+</html>
