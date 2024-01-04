@@ -12,7 +12,7 @@ class Student(models.Model):
 
     first_name = models.CharField('Имя', max_length=256)
     last_name = models.CharField('Фамилия', max_length=256)
-    date_of_birth = models.DateTimeField('Дата рождения', blank=True, null=True)
+    date_of_birth = models.DateField('Дата рождения', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Студент'
@@ -37,7 +37,7 @@ class Stuff(models.Model):
     first_name = models.CharField('Имя', max_length=256)
     last_name = models.CharField('Фамилия', max_length=256)
     role = models.IntegerField('Роль', choices=StuffRole.choices, default=StuffRole.TEACHER)
-    date_of_birth = models.DateField('Дата рождения', default=date.today() - timedelta(days=30 * 365))
+    date_of_birth = models.DateField('Дата рождения', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Сотрудник'
