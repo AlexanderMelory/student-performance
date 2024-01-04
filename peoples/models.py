@@ -1,7 +1,6 @@
 from datetime import date, timedelta
 from django.db import models
 from django.utils import timezone
-
 from peoples.choices import StuffRole
 
 
