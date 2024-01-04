@@ -1,5 +1,7 @@
 from datetime import date
 from django.db import models
+from django.utils import timezone
+from django.utils.functional import cached_property
 
 
 class Faculty(models.Model):
@@ -55,7 +57,7 @@ class StudentGroup(models.Model):
     """
 
     name = models.CharField('Название группы', max_length=5000)
-    date_start = models.DateField('Дата поступления', default=date.today())
+    date_start = models.DateField('Дата поступления', default=timezone.now, blank=True)
     course = models.PositiveIntegerField('Курс', default=1),
     students = models.ManyToManyField('peoples.Student', verbose_name='Студенты', related_name='student_groups')
 
@@ -63,6 +65,32 @@ class StudentGroup(models.Model):
         verbose_name = 'Учебная группа'
         verbose_name_plural = 'Учебные группы'
         ordering = ('-name',)
+
+    def __str__(self):
+        return self.name
+
+
+class Statement(models.Model):
+    """
+    Ведомость
+    """
+
+    group = models.OneToOneField(
+        'main.StudentGroup', verbose_name='Группа', related_name='statement', on_delete=models.CASCADE
+    )
+    student = models.OneToOneField(
+        'peoples.Student', verbose_name='Студент', related_name='statement', on_delete=models.CASCADE
+    )
+    grade = models.PositiveIntegerField('Оценка', default=1)
+
+    @cached_property
+    def name(self):
+        return f'Ведомость студента {self.student} группы {self.group}'
+
+    class Meta:
+        verbose_name = 'Ведомость'
+        verbose_name_plural = 'Ведомости'
+        ordering = ('-student',)
 
     def __str__(self):
         return self.name
