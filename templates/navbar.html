@@ -16,10 +16,12 @@
              href="{% url 'peoples:stuff-list' %}">Сотрудники</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Кафедры</a>
+          <a class="nav-link {% if request.resolver_match.view_name == 'main:department-list' %}active{% endif %}"
+             href="{% url 'main:department-list' %}">Кафедры</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Факультеты</a>
+          <a class="nav-link {% if request.resolver_match.view_name == 'main:faculty-list' %}active{% endif %}"
+             href="{% url 'main:faculty-list' %}">Факультеты</a>
         </li>
       </ul>
     </div>

@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Редактировать информацию о кафедре</h2>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="id_name" class="form-label">Название кафедры</label>
+        <input type="text" class="form-control" id="id_name" name="name" value="{{ department.name }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_leader" class="form-label">Заведующий</label>
+        <select class="form-select" id="id_leader" name="leader">
+          <option value="{{ department.leader.id }}" selected>{{ department.leader.first_name }} {{ department.leader.last_name }}</option>
+          <!-- Добавьте другие варианты выбора для всех преподавателей -->
+          {% for teacher in all_teachers %}
+            <option value="{{ teacher.id }}">{{ teacher.first_name }} {{ teacher.last_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_faculty" class="form-label">Факультет</label>
+        <select class="form-select" id="id_faculty" name="faculty">
+          <option value="{{ department.faculty.id }}" selected>{{ department.faculty.name }}</option>
+          <!-- Добавьте другие варианты выбора для всех факультетов -->
+          {% for faculty in object.faculty.all %}
+            <option value="{{ faculty.id }}">{{ faculty.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_room" class="form-label">Номер комнаты</label>
+        <input type="number" class="form-control" id="id_room" name="room" value="{{ department.room }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_housing" class="form-label">Номер корпуса</label>
+        <input type="number" class="form-control" id="id_housing" name="housing" value="{{ department.housing }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_phone" class="form-label">Номер телефона</label>
+        <input type="text" class="form-control" id="id_phone" name="phone" value="{{ department.phone }}" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_teachers" class="form-label">Преподаватели</label>
+        <select multiple class="form-select" id="id_teachers" name="teachers">
+          {% for teacher in object.teachers.all %}
+            <option value="{{ teacher.id }}" {% if teacher in department.teachers.all %}selected{% endif %}>{{ teacher.first_name }} {{ teacher.last_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+
+    <div class="mt-3">
+      <a href="{% url 'main:department-detail' department.pk %}" class="btn btn-secondary">Отмена</a>
+    </div>
+  </div>
+{% endblock %}

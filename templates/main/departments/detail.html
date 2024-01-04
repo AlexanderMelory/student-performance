@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Информация о кафедре</h2>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Название кафедры: {{ department.name }}</h5>
+        <p class="card-text">Заведующий: {{ department.leader.first_name }} {{ department.leader.last_name }}</p>
+        <p class="card-text">Факультет: {{ department.faculty.name }}</p>
+        <p class="card-text">Номер комнаты: {{ department.room }}</p>
+        <p class="card-text">Номер корпуса: {{ department.housing }}</p>
+        <p class="card-text">Номер телефона: {{ department.phone }}</p>
+        <p class="card-text">Преподаватели:</p>
+        <ul>
+          {% for teacher in department.teachers.all %}
+            <li>{{ teacher.first_name }} {{ teacher.last_name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <a href="{% url 'main:department-list' %}" class="btn btn-primary">Вернуться к списку кафедр</a>
+      <a href="{% url 'main:department-edit' object.pk %}" class="btn btn-warning">Редактировать</a>
+    </div>
+  </div>
+{% endblock %}

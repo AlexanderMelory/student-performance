@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.functional import cached_property
 
@@ -22,6 +23,9 @@ class Faculty(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_detail_url(self):
+        return reverse_lazy('main:faculty-detail', kwargs={'pk': self.pk})
 
 
 class Department(models.Model):
@@ -48,6 +52,9 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_detail_url(self):
+        return reverse_lazy('main:department-detail', kwargs={'pk': self.pk})
 
 
 class StudentGroup(models.Model):
@@ -93,3 +100,7 @@ class Statement(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    def get_detail_url(self):
+        return reverse_lazy('main:statement-detail', kwargs={'pk': self.pk})
