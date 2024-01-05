@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody>
-      {% for faculty in faculties %}
+      {% for faculty in object_list %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <td>{{ faculty.name }}</td>

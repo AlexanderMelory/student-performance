@@ -3,6 +3,8 @@ from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from main.forms import FacultyUpdateForm, FacultyCreateForm, DepartmentUpdateForm, DepartmentCreateForm, \
     StatementUpdateForm, StatementCreateForm
 from main.models import Department, Faculty, Statement
+from peoples.choices import StuffRole
+from peoples.models import Stuff
 
 
 class DepartmentCreateView(CreateView):
@@ -57,6 +59,11 @@ class FacultyCreateView(CreateView):
     model = Faculty
     template_name = 'main/faculties/create.html'
     form_class = FacultyCreateForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        teachers = Stuff.objects.filter(role=StuffRole.TEACHER)
+        context.update({'teachers': teachers})
 
     def get_success_url(self):
         return self.object.get_detail_url()

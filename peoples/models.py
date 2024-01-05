@@ -1,7 +1,5 @@
-from datetime import date, timedelta
 from django.db import models
 from django.urls import reverse_lazy
-from django.utils import timezone
 from peoples.choices import StuffRole
 
 

@@ -16,7 +16,7 @@
         <label for="leader">Декан:</label>
         <select class="form-control" id="leader" name="leader">
           <option value="" selected>Выберите декана (необязательно)</option>
-          {% for teacher in object.teachers.all %}
+          {% for teacher in teachers %}
             <option value="{{ teacher.id }}">{{ teacher }}</option>
           {% endfor %}
         </select>
@@ -40,7 +40,7 @@
       <div class="form-group">
         <label for="teachers">Преподаватели:</label>
         <select multiple class="form-control" id="teachers" name="teachers">
-          {% for teacher in object.teachers.all %}
+          {% for teacher in teachers %}
             <option value="{{ teacher.id }}">{{ teacher }}</option>
           {% endfor %}
         </select>
