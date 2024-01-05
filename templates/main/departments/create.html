@@ -15,7 +15,6 @@
       <div class="mb-3">
         <label for="id_leader" class="form-label">Заведующий</label>
         <select class="form-select" id="id_leader" name="leader">
-          <!-- Добавьте варианты выбора для всех преподавателей -->
           {% for teacher in all_teachers %}
             <option value="{{ teacher.id }}">{{ teacher.first_name }} {{ teacher.last_name }}</option>
           {% endfor %}

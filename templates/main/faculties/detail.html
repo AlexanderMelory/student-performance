@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
 
-  </body>
-</html>
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="mb-4">Детали факультета: {{ faculty.name }}</h2>
+
+    <dl class="row">
+      <dt class="col-sm-3">Название факультета:</dt>
+      <dd class="col-sm-9">{{ faculty.name }}</dd>
+
+      <dt class="col-sm-3">Декан:</dt>
+      <dd class="col-sm-9">{{ faculty.leader.full_name if faculty.leader else 'Отсутствует' }}</dd>
+
+      <dt class="col-sm-3">Номер комнаты:</dt>
+      <dd class="col-sm-9">{{ faculty.room }}</dd>
+
+      <dt class="col-sm-3">Номер корпуса:</dt>
+      <dd class="col-sm-9">{{ faculty.housing }}</dd>
+
+      <dt class="col-sm-3">Номер телефона:</dt>
+      <dd class="col-sm-9">{{ faculty.phone }}</dd>
+
+      <dt class="col-sm-3">Преподаватели:</dt>
+      <dd class="col-sm-9">
+        {% if faculty.teachers.exists %}
+          <ul>
+            {% for teacher in faculty.teachers.all %}
+              <li>{{ teacher.full_name }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          Отсутствуют
+        {% endif %}
+      </dd>
+    </dl>
+    <a href="{% url 'main:faculty-list' %}" class="btn btn-secondary">Вернуться к списку факультетов</a>
+    <a href="{% url 'main:faculty-edit' object.pk %}" class="btn btn-warning">Редактировать</a>
+  </div>
+{% endblock %}
